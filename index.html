@@ -72,16 +72,38 @@
         box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
       }
 
-      .artist-name {
+      .artist-info {
         position: absolute;
         bottom: 5%;
         left: 50%;
         transform: translateX(-50%);
+        text-align: center;
+        z-index: 20;
+      }
+
+      .artist-name {
         font-size: 2rem;
         font-weight: bold;
         color: #fff;
-        text-align: center;
-        z-index: 20;
+        margin-bottom: 20px;
+      }
+
+      .artist-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: black;
+        color: white;
+        border: 2px solid red;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .artist-button:hover {
+        background-color: red;
+        color: white;
+        transform: scale(1.05);
       }
 
       .search-bar input {
@@ -136,7 +158,11 @@
         <div class="side-area right-area" id="right-area"></div>
 
         <!-- 艺术家名字 -->
-        <div class="artist-name" id="artist-name">主艺术家</div>
+        <!-- <div class="artist-name" id="artist-name">主艺术家</div> -->
+        <div class="artist-info">
+          <div class="artist-name" id="artist-name"></div>
+          <a id="artist-link" class="artist-button" href="#">查看详情</a>
+        </div>
       </div>
     </main>
 
@@ -193,11 +219,41 @@
 
     <!-- JS逻辑 -->
     <script>
+      // 艺术家数据数组（包含名字和页面链接）
+      const artistsData = [
+        { name: "Jungkook (BTS)", page: "artist1.html" },
+        { name: "Taylor Swift", page: "artist2.html" },
+        { name: "Adele", page: "artist3.html" },
+        { name: "The Weeknd", page: "artist4.html" },
+        { name: "Beyoncé", page: "artist5.html" },
+        { name: "Ed Sheeran", page: "artist6.html" },
+        { name: "Billie Eilish", page: "artist7.html" },
+        { name: "Drake", page: "artist8.html" },
+        { name: "Dua Lipa", page: "artist9.html" },
+        { name: "Post Malone", page: "artist10.html" },
+        { name: "Ariana Grande", page: "artist11.html" },
+        { name: "Justin Bieber", page: "artist12.html" },
+        { name: "Doja Cat", page: "artist13.html" },
+        { name: "Coldplay", page: "artist14.html" },
+        { name: "Olivia Rodrigo", page: "artist15.html" },
+        { name: "Bruno Mars", page: "artist16.html" },
+        { name: "Harry Styles", page: "artist17.html" },
+        { name: "Eminem", page: "artist18.html" },
+        { name: "Lady Gaga", page: "artist19.html" },
+        { name: "Kendrick Lamar", page: "artist20.html" },
+      ];
+
       // 获取DOM元素
       const leftArea = document.getElementById("left-area");
       const rightArea = document.getElementById("right-area");
       const mainImage = document.querySelector(".main-image");
       const artistName = document.getElementById("artist-name");
+      const artistLink = document.getElementById("artist-link"); // 新增的详情按钮
+
+      // 修改主图片初始化
+      mainImage.alt = artistsData[0].name;
+      mainImage.dataset.index = "0"; // 存储数组索引
+      updateArtistInfo(0); // 初始化艺术家信息
 
       // 图片数量
       const imageCount = 10;
@@ -213,7 +269,6 @@
             Math.pow(x - pos.x, 2) + Math.pow(y - pos.y, 2)
           );
           if (distance < size * 1.2) {
-            // 1.2倍大小作为安全距离
             return true;
           }
         }
@@ -237,7 +292,6 @@
           attempts++;
 
           if (attempts > maxAttempts) {
-            // 如果尝试次数过多，返回null表示无法放置
             return null;
           }
         } while (isOverlapping(x, y, size, existingPositions));
@@ -247,17 +301,13 @@
 
       // 重新布局所有小图片
       function rearrangeSmallImages() {
-        // 清空位置记录
         const leftPositions = [];
         const rightPositions = [];
-
-        // 获取区域尺寸
         const leftWidth = leftArea.clientWidth;
         const rightWidth = rightArea.clientWidth;
         const areaHeight = leftArea.clientHeight;
-        const size = (smallImageSize * window.innerHeight) / 100; // 转换为px
+        const size = (smallImageSize * window.innerHeight) / 100;
 
-        // 重新布局左侧图片
         smallImages
           .filter((img) => img.parentElement === leftArea)
           .forEach((img) => {
@@ -274,7 +324,6 @@
             }
           });
 
-        // 重新布局右侧图片
         smallImages
           .filter((img) => img.parentElement === rightArea)
           .forEach((img) => {
@@ -292,12 +341,25 @@
           });
       }
 
+      // 更新艺术家信息（名字+链接）
+      function updateArtistInfo(index) {
+        const artist = artistsData[index];
+        artistName.textContent = artist.name;
+        if (artistLink) {
+          artistLink.href = artist.page;
+        }
+
+        // 如果存在标题中的艺术家名字元素也更新
+        if (document.getElementById("main-artist-name")) {
+          document.getElementById("main-artist-name").textContent = artist.name;
+        }
+      }
+
       // 在指定区域生成图片
       function generateImages(area, count, isLeft) {
         const areaWidth = area.clientWidth;
         const areaHeight = area.clientHeight;
-        const size = (smallImageSize * window.innerHeight) / 100; // 转换为px
-
+        const size = (smallImageSize * window.innerHeight) / 100;
         const areaPositions = [];
 
         for (let i = 0; i < count; i++) {
@@ -307,7 +369,6 @@
             size,
             areaPositions
           );
-
           if (!position) {
             console.warn(`无法放置第 ${i + 1} 张图片，跳过`);
             continue;
@@ -315,46 +376,38 @@
 
           const img = document.createElement("img");
           img.className = "small-image";
+          const artistIndex = isLeft ? i : i + count;
 
-          // 修改为本地图片路径
-          const imgNumber = isLeft ? i + 1 : i + 1 + count; // 左侧1-10，右侧11-20
-          img.src = `./artists/pic/artist${imgNumber}.webp`;
-          img.alt = `艺术家 ${imgNumber}`;
+          img.src = `./artists/pic/artist${
+            isLeft ? i + 1 : i + 1 + count
+          }.webp`;
+          img.alt = artistsData[artistIndex].name;
+          img.dataset.index = artistIndex; // 存储艺术家数组索引
 
-          // 设置位置
           img.style.left = `${position.x - size / 2}px`;
           img.style.top = `${position.y - size / 2}px`;
 
           img.onclick = function () {
             // 交换主图片和点击的图片
-            const tempSrc = mainImage.src;
-            const tempAlt = mainImage.alt;
-            mainImage.src = this.src;
-            mainImage.alt = this.alt;
-            this.src = tempSrc;
-            this.alt = tempAlt;
+            [mainImage.src, this.src] = [this.src, mainImage.src];
+            [mainImage.alt, this.alt] = [this.alt, mainImage.alt];
+            [mainImage.dataset.index, this.dataset.index] = [
+              this.dataset.index,
+              mainImage.dataset.index,
+            ];
 
-            // 更新所有位置的艺术家名字
-            updateArtistName(mainImage.alt);
+            // 更新艺术家信息
+            updateArtistInfo(parseInt(mainImage.dataset.index));
 
-            // 重新排列剩余小图片的位置
+            // 重新排列图片
             rearrangeSmallImages();
           };
 
           area.appendChild(img);
-          smallImages.push(img); // 添加到全局数组
+          smallImages.push(img);
           areaPositions.push({ x: position.x, y: position.y });
         }
       }
-
-      // 新增函数：统一更新艺术家名字
-      function updateArtistName(name) {
-        artistName.textContent = name; // 原来底部的名字
-        document.getElementById("main-artist-name").textContent = name; // 标题中的名字
-      }
-
-      // 初始化时设置一次名字
-      updateArtistName(mainImage.alt);
 
       // 生成图片
       generateImages(leftArea, imageCount, true);
@@ -362,11 +415,9 @@
 
       // 窗口大小改变时重新布局
       window.addEventListener("resize", function () {
-        // 清空现有图片
         leftArea.innerHTML = "";
         rightArea.innerHTML = "";
-        smallImages = []; // 清空数组
-        // 重新生成
+        smallImages = [];
         generateImages(leftArea, imageCount, true);
         generateImages(rightArea, imageCount, false);
       });
