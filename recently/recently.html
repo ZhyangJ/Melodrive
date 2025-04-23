@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>最近播放 | MusicScrobble</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        /* 新增的专门用于最近播放页面的样式 */
+        .recent-tracks-page {
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+        
+        .recent-tracks-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .recent-tracks-header h1 {
+            font-size: 24px;
+            color: #333;
+        }
+        
+        .track-list {
+            width: 100%;
+        }
+        
+        .track-row {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #f5f5f5;
+        }
+        
+        .track-row:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .track-number {
+            width: 40px;
+            text-align: center;
+            color: #999;
+        }
+        
+        .track-cover {
+            width: 50px;
+            height: 50px;
+            margin: 0 15px;
+        }
+        
+        .track-info {
+            flex: 1;
+        }
+        
+        .track-name {
+            font-weight: 500;
+            margin-bottom: 3px;
+        }
+        
+        .track-artist {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .track-time {
+            width: 100px;
+            text-align: right;
+            color: #999;
+            font-size: 14px;
+        }
+        
+        .play-button {
+            width: 40px;
+            text-align: center;
+        }
+        
+        .play-button a {
+            color: #d51007;
+            font-size: 20px;
+        }
+        
+        .pagination {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+        
+        .pagination a {
+            color: #333;
+            padding: 8px 16px;
+            margin: 0 5px;
+            border-radius: 4px;
+        }
+        
+        .pagination a.active {
+            background-color: #d51007;
+            color: white;
+        }
+        
+        .pagination a:hover:not(.active) {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container header-container">
+            <a href="../index.html" class="logo">Music<span>Scrobble</span></a>
+            <div class="search-bar">
+                <input type="text" placeholder="搜索艺术家、专辑或歌曲">
+                <button>搜索</button>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="../index.html">首页</a></li>
+                    <li><a href="../mine/mine.html">我的</a></li>
+                    <li><a href="../library/library.html">音乐库</a></li>
+                    <li><a href="../artists/artists.html">艺术家</a></li>
+                    <li><a href="recently.html" class="active">最近播放</a></li>
+
+                </ul>
+            </nav>
+        </div>
+    </header>
+    
+    <!-- 主要内容 -->
+    <div class="container main-content">
+        <!-- 侧边栏 -->
+        <aside class="sidebar">
+            <div class="user-card">
+                <div class="user-avatar">
+                    <img src="https://via.placeholder.com/80" alt="用户头像">
+                </div>
+                <div class="user-name">音乐爱好者</div>
+                <div class="user-stats">
+                    <div class="stat-item">
+                        <span class="stat-number">1,234</span>
+                        <span>Scrobbles</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">256</span>
+                        <span>艺术家</span>
+                    </div>
+                </div>
+                <a href="#" style="display: block; text-align: center; font-size: 14px;">查看完整档案</a>
+            </div>
+            
+            <div class="recent-tracks">
+                <h3>最近播放</h3>
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                    </div>
+                    <div class="track-info">
+                        <div class="track-name">Bohemian Rhapsody</div>
+                        <div class="track-artist">Queen</div>
+                    </div>
+                </div>
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                    </div>
+                    <div class="track-info">
+                        <div class="track-name">Blinding Lights</div>
+                        <div class="track-artist">The Weeknd</div>
+                    </div>
+                </div>
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                    </div>
+                    <div class="track-info">
+                        <div class="track-name">Levitating</div>
+                        <div class="track-artist">Dua Lipa</div>
+                    </div>
+                </div>
+                <div class="track-item">
+                    <div class="track-cover">
+                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                    </div>
+                    <div class="track-info">
+                        <div class="track-name">Stay</div>
+                        <div class="track-artist">The Kid LAROI, Justin Bieber</div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- 主内容区 -->
+        <main class="content">
+            <div class="recent-tracks-page">
+                <div class="recent-tracks-header">
+                    <h1>最近播放</h1>
+                    <div class="time-range">
+                        <select>
+                            <option>过去7天</option>
+                            <option selected>过去30天</option>
+                            <option>过去90天</option>
+                            <option>所有时间</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="track-list">
+                    <!-- 最近播放的歌曲列表 -->
+                    <div class="track-row">
+                        <div class="track-number">1</div>
+                        <div class="play-button">
+                            <a href="#">▶</a>
+                        </div>
+                        <div class="track-cover">
+                            <img src="https://via.placeholder.com/50" alt="专辑封面">
+                        </div>
+                        <div class="track-info">
+                            <div class="track-name">Blinding Lights</div>
+                            <div class="track-artist">The Weeknd</div>
+                        </div>
+                        <div class="track-time">3小时前</div>
+                    </div>
+                    
+                    <div class="track-row">
+                        <div class="track-number">2</div>
+                        <div class="play-button">
+                            <a href="#">▶</a>
+                        </div>
+                        <div class="track-cover">
+                            <img src="https://via.placeholder.com/50" alt="专辑封面">
+                        </div>
+                        <div class="track-info">
+                            <div class="track-name">Levitating</div>
+                            <div class="track-artist">Dua Lipa</div>
+                        </div>
+                        <div class="track-time">5小时前</div>
+                    </div>
+                    
+                    <div class="track-row">
+                        <div class="track-number">3</div>
+                        <div class="play-button">
+                            <a href="#">▶</a>
+                        </div>
+                        <div class="track-cover">
+                            <img src="https://via.placeholder.com/50" alt="专辑封面">
+                        </div>
+                        <div class="track-info">
+                            <div class="track-name">Stay</div>
+                            <div class="track-artist">The Kid LAROI, Justin Bieber</div>
+                        </div>
+                        <div class="track-time">昨天</div>
+                    </div>
+                    
+                    <div class="track-row">
+                        <div class="track-number">4</div>
+                        <div class="play-button">
+                            <a href="#">▶</a>
+                        </div>
+                        <div class="track-cover">
+                            <img src="https://via.placeholder.com/50" alt="专辑封面">
+                        </div>
+                        <div class="track-info">
+                            <div class="track-name">Bohemian Rhapsody</div>
+                            <div class="track-artist">Queen</div>
+                        </div>
+                        <div class="track-time">昨天</div>
+                    </div>
+                    
+                    <div class="track-row">
+                        <div class="track-number">5</div>
+                        <div class="play-button">
+                            <a href="#">▶</a>
+                        </div>
+                        <div class="track-cover">
+                            <img src="https://via.placeholder.com/50" alt="专辑封面">
+                        </div>
+                        <div class="track-info">
+                            <div class="track-name">Save Your Tears</div>
+                            <div class="track-artist">The Weeknd</div>
+                        </div>
+                        <div class="track-time">2天前</div>
+                    </div>
+                    
+                    <!-- 更多歌曲行... -->
+                </div>
+                
+                <div class="pagination">
+                    <a href="#">&laquo;</a>
+                    <a href="#" class="active">1</a>
+                    <a href="#">2</a>
+                    <a href="#">3</a>
+                    <a href="#">&raquo;</a>
+                </div>
+            </div>
+        </main>
+    </div>
+    
+    <!-- 共用页脚 -->
+    <footer>
+        <div class="container footer-content">
+            <div class="footer-section">
+                <h3>关于 MusicScrobble</h3>
+                <ul>
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">工作机会</a></li>
+                    <li><a href="#">联系我们</a></li>
+                    <li><a href="#">隐私政策</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>帮助</h3>
+                <ul>
+                    <li><a href="#">常见问题</a></li>
+                    <li><a href="#">使用指南</a></li>
+                    <li><a href="#">API</a></li>
+                    <li><a href="#">支持</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>社区</h3>
+                <ul>
+                    <li><a href="#">论坛</a></li>
+                    <li><a href="#">活动</a></li>
+                    <li><a href="#">排行榜</a></li>
+                    <li><a href="#">艺术家中心</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-section">
+                <h3>关注我们</h3>
+                <ul>
+                    <li><a href="#">Twitter</a></li>
+                    <li><a href="#">Facebook</a></li>
+                    <li><a href="#">Instagram</a></li>
+                    <li><a href="#">YouTube</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container copyright">
+            <p>&copy; 2023 MusicScrobble. 保留所有权利。仿 Last.fm 风格的音乐网站。</p>
+        </div>
+    </footer>
+</body>
+</html>

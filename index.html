@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页 | MusicScrobble</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .gallery-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
+      }
+
+      .gallery-container {
+        position: relative;
+        width: 100%;
+        height: 80vh;
+        margin: 2rem 0;
+      }
+
+      .main-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40vh;
+        height: 40vh;
+        border-radius: 50%;
+        object-fit: cover;
+        z-index: 10;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+
+      .side-area {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: calc(50% - 20vh);
+      }
+
+      .left-area {
+        left: 0;
+      }
+
+      .right-area {
+        right: 0;
+      }
+
+      .small-image {
+        position: absolute;
+        width: 15vh;
+        height: 15vh;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      }
+
+      .small-image:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      }
+
+      .artist-name {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+        text-align: center;
+        z-index: 20;
+      }
+
+      .search-bar input {
+        background-color: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 导航栏 -->
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">Music<span>Scrobble</span></a>
+        <div class="search-bar">
+          <input type="text" placeholder="搜索艺术家、专辑或歌曲" />
+          <button>搜索</button>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="mine/mine.html">我的</a></li>
+            <li><a href="library/library.html">音乐库</a></li>
+            <li><a href="artists/artists.html">艺术家</a></li>
+            <li><a href="recently/recently.html">最近播放</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container">
+      <!-- 新增的圆形画廊 -->
+      <div class="gallery-container">
+        <!-- 主图片 -->
+        <img
+          class="main-image"
+          src="./artists/pic/artist21.webp"
+          alt="主艺术家"
+        />
+
+        <div class="gallery-header">
+          <h1>Similar Artists</h1>
+          <p>
+            <strong id="main-artist-name">Main Artist</strong> and their similar
+            artists
+          </p>
+        </div>
+        <!-- 左侧区域 -->
+        <div class="side-area left-area" id="left-area"></div>
+
+        <!-- 右侧区域 -->
+        <div class="side-area right-area" id="right-area"></div>
+
+        <!-- 艺术家名字 -->
+        <div class="artist-name" id="artist-name">主艺术家</div>
+      </div>
+    </main>
+
+    <!-- 共用页脚 -->
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h3>关于 MusicScrobble</h3>
+          <ul>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">工作机会</a></li>
+            <li><a href="#">联系我们</a></li>
+            <li><a href="#">隐私政策</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>帮助</h3>
+          <ul>
+            <li><a href="#">常见问题</a></li>
+            <li><a href="#">使用指南</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">支持</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>社区</h3>
+          <ul>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">活动</a></li>
+            <li><a href="#">排行榜</a></li>
+            <li><a href="#">艺术家中心</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>关注我们</h3>
+          <ul>
+            <li><a href="#">Twitter</a></li>
+            <li><a href="#">Facebook</a></li>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container copyright">
+        <p>
+          &copy; 2023 MusicScrobble. 保留所有权利。仿 Last.fm 风格的音乐网站。
+        </p>
+      </div>
+    </footer>
+
+    <!-- JS逻辑 -->
+    <script>
+      // 获取DOM元素
+      const leftArea = document.getElementById("left-area");
+      const rightArea = document.getElementById("right-area");
+      const mainImage = document.querySelector(".main-image");
+      const artistName = document.getElementById("artist-name");
+
+      // 图片数量
+      const imageCount = 10;
+      const smallImageSize = 15; // vh单位
+
+      // 存储所有小图片元素的数组
+      let smallImages = [];
+
+      // 检查新位置是否与已放置图片重叠
+      function isOverlapping(x, y, size, existingPositions) {
+        for (const pos of existingPositions) {
+          const distance = Math.sqrt(
+            Math.pow(x - pos.x, 2) + Math.pow(y - pos.y, 2)
+          );
+          if (distance < size * 1.2) {
+            // 1.2倍大小作为安全距离
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // 生成随机位置
+      function getRandomPosition(
+        areaWidth,
+        areaHeight,
+        size,
+        existingPositions
+      ) {
+        const maxAttempts = 100;
+        let attempts = 0;
+        let x, y;
+
+        do {
+          x = size / 2 + Math.random() * (areaWidth - size);
+          y = size / 2 + Math.random() * (areaHeight - size);
+          attempts++;
+
+          if (attempts > maxAttempts) {
+            // 如果尝试次数过多，返回null表示无法放置
+            return null;
+          }
+        } while (isOverlapping(x, y, size, existingPositions));
+
+        return { x, y };
+      }
+
+      // 重新布局所有小图片
+      function rearrangeSmallImages() {
+        // 清空位置记录
+        const leftPositions = [];
+        const rightPositions = [];
+
+        // 获取区域尺寸
+        const leftWidth = leftArea.clientWidth;
+        const rightWidth = rightArea.clientWidth;
+        const areaHeight = leftArea.clientHeight;
+        const size = (smallImageSize * window.innerHeight) / 100; // 转换为px
+
+        // 重新布局左侧图片
+        smallImages
+          .filter((img) => img.parentElement === leftArea)
+          .forEach((img) => {
+            const position = getRandomPosition(
+              leftWidth,
+              areaHeight,
+              size,
+              leftPositions
+            );
+            if (position) {
+              img.style.left = `${position.x - size / 2}px`;
+              img.style.top = `${position.y - size / 2}px`;
+              leftPositions.push({ x: position.x, y: position.y });
+            }
+          });
+
+        // 重新布局右侧图片
+        smallImages
+          .filter((img) => img.parentElement === rightArea)
+          .forEach((img) => {
+            const position = getRandomPosition(
+              rightWidth,
+              areaHeight,
+              size,
+              rightPositions
+            );
+            if (position) {
+              img.style.left = `${position.x - size / 2}px`;
+              img.style.top = `${position.y - size / 2}px`;
+              rightPositions.push({ x: position.x, y: position.y });
+            }
+          });
+      }
+
+      // 在指定区域生成图片
+      function generateImages(area, count, isLeft) {
+        const areaWidth = area.clientWidth;
+        const areaHeight = area.clientHeight;
+        const size = (smallImageSize * window.innerHeight) / 100; // 转换为px
+
+        const areaPositions = [];
+
+        for (let i = 0; i < count; i++) {
+          const position = getRandomPosition(
+            areaWidth,
+            areaHeight,
+            size,
+            areaPositions
+          );
+
+          if (!position) {
+            console.warn(`无法放置第 ${i + 1} 张图片，跳过`);
+            continue;
+          }
+
+          const img = document.createElement("img");
+          img.className = "small-image";
+
+          // 修改为本地图片路径
+          const imgNumber = isLeft ? i + 1 : i + 1 + count; // 左侧1-10，右侧11-20
+          img.src = `./artists/pic/artist${imgNumber}.webp`;
+          img.alt = `艺术家 ${imgNumber}`;
+
+          // 设置位置
+          img.style.left = `${position.x - size / 2}px`;
+          img.style.top = `${position.y - size / 2}px`;
+
+          img.onclick = function () {
+            // 交换主图片和点击的图片
+            const tempSrc = mainImage.src;
+            const tempAlt = mainImage.alt;
+            mainImage.src = this.src;
+            mainImage.alt = this.alt;
+            this.src = tempSrc;
+            this.alt = tempAlt;
+
+            // 更新所有位置的艺术家名字
+            updateArtistName(mainImage.alt);
+
+            // 重新排列剩余小图片的位置
+            rearrangeSmallImages();
+          };
+
+          area.appendChild(img);
+          smallImages.push(img); // 添加到全局数组
+          areaPositions.push({ x: position.x, y: position.y });
+        }
+      }
+
+      // 新增函数：统一更新艺术家名字
+      function updateArtistName(name) {
+        artistName.textContent = name; // 原来底部的名字
+        document.getElementById("main-artist-name").textContent = name; // 标题中的名字
+      }
+
+      // 初始化时设置一次名字
+      updateArtistName(mainImage.alt);
+
+      // 生成图片
+      generateImages(leftArea, imageCount, true);
+      generateImages(rightArea, imageCount, false);
+
+      // 窗口大小改变时重新布局
+      window.addEventListener("resize", function () {
+        // 清空现有图片
+        leftArea.innerHTML = "";
+        rightArea.innerHTML = "";
+        smallImages = []; // 清空数组
+        // 重新生成
+        generateImages(leftArea, imageCount, true);
+        generateImages(rightArea, imageCount, false);
+      });
+    </script>
+  </body>
+</html>
