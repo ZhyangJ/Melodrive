@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Drake | Melodrive</title>
+    <link rel="stylesheet" href="../css/style.css" />
+    <style>
+
+      :root {
+        --primary-color: #d51007;
+        --dark-bg: #121212;
+        --light-bg: #181818;
+        --text-primary: #ffffff;
+        --text-secondary: #b3b3b3;
+      }
+
+      body {
+        font-family: 'Helvetica Neue', Arial, sans-serif;
+        background-color: var(--dark-bg);
+        color: var(--text-primary);
+        margin: 0;
+        line-height: 1.6;
+      }
+
+
+      /* 头部区域 */
+      .artist-header {
+        display: flex;
+        padding: 30px 0;
+        border-bottom: 1px solid #333;
+        margin-bottom: 30px;
+      }
+
+      .artist-image {
+        width: 240px;
+        height: 240px;
+        object-fit: cover;
+        border-radius: 4px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+      }
+
+      .artist-info {
+        padding-left: 30px;
+        flex: 1;
+      }
+
+      .artist-name {
+        font-size: 36px;
+        font-weight: 700;
+        margin: 0 0 10px;
+      }
+
+      .artist-stats {
+        display: flex;
+        margin-bottom: 20px;
+        color: var(--text-secondary);
+      }
+
+      .stat-item {
+        margin-right: 30px;
+      }
+
+      .stat-number {
+        font-size: 24px;
+        font-weight: 700;
+        color: var(--text-primary);
+      }
+
+      .artist-tags {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 15px 0;
+      }
+
+      .tag {
+        background-color: var(--light-bg);
+        color: var(--text-primary);
+        padding: 5px 12px;
+        border-radius: 15px;
+        margin-right: 8px;
+        margin-bottom: 8px;
+        font-size: 14px;
+      }
+
+      /* 主要内容区 */
+      .section-title {
+        font-size: 24px;
+        margin: 30px 0 20px;
+      }
+
+      /* 热门歌曲 */
+      .track-list {
+        list-style: none;
+        padding: 0;
+      }
+
+      .track-item {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        border-radius: 4px;
+        
+        border-bottom: 1px solid #242121;
+      }
+
+      .track-item:hover {
+        background-color: var(--light-bg);
+      }
+
+      .track-number {
+        width: 30px;
+        color: var(--text-secondary);
+        text-align: center;
+      }
+
+      .track-name {
+        flex: 1;
+        font-weight: 500;
+      }
+
+      .track-plays {
+        width: 100px;
+        text-align: right;
+        color: var(--text-secondary);
+      }
+
+      /* 专辑网格 */
+      .album-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+      }
+
+      .album-card {
+        background-color: var(--light-bg);
+        border-radius: 6px;
+        overflow: hidden;
+        transition: transform 0.2s;
+      }
+
+      .album-card:hover {
+        transform: translateY(-5px);
+      }
+
+      .album-cover {
+        width: 100%;
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+
+      .album-info {
+        padding: 12px;
+      }
+
+      .album-title {
+        font-weight: 600;
+        margin: 5px 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      .album-year {
+        color: var(--text-secondary);
+        font-size: 14px;
+      }
+
+      /* 相似艺术家 */
+      .similar-artists {
+        display: flex;
+        overflow-x: auto;
+        padding-bottom: 20px;
+      }
+
+      .similar-artist {
+        flex: 0 0 150px;
+        margin-right: 20px;
+        text-align: center;
+      }
+
+      .similar-artist img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 10px;
+      }
+
+      /* 收藏按钮样式 */
+      .favorite-button {
+        background-color: transparent;
+        border: 1px solid var(--primary-color);
+        color: var(--primary-color);
+        padding: 5px 15px;
+        border-radius: 20px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .favorite-button.favorited {
+        background-color: var(--primary-color);
+        color: var(--text-primary);
+      }
+
+      /* 响应式调整 */
+      @media (max-width: 768px) {
+        .artist-header {
+          flex-direction: column;
+        }
+
+        .artist-image {
+          width: 100%;
+          height: auto;
+          margin-bottom: 20px;
+        }
+
+        .artist-info {
+          padding-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 导航栏 -->
+    <header>
+      <div class="container header-container">
+        <a href="../index.html" class="logo">Melo<span>drive</span></a>
+        <div class="search-bar">
+          <input type="text" placeholder="搜索艺术家、专辑或歌曲" />
+          <button>搜索</button>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="../index.html">首页</a></li>
+            <li><a href="../mine/mine.html">我的</a></li>
+            <li><a href="../library/library.html">音乐库</a></li>
+            <li><a href="../artists/artists.html">艺术家</a></li>
+            <li><a href="../recently/recently.html">最近播放</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 主要内容 -->
+<main class="container">
+    <div class="artist-header">
+      <img src="../pic/artist8.webp" alt="Drake" class="artist-image">
+      <div class="artist-info">
+        <h1 class="artist-name">Drake</h1>
+
+        <div class="artist-stats">
+          <div class="stat-item">
+            <div class="stat-number">278,945,612</div>
+            <div>播放次数</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">89,123,456</div>
+            <div>听众</div>
+          </div>
+          <div class="stat-item">
+            <div class="stat-number">15,678,901</div>
+            <div>收藏者</div>
+          </div>
+        </div>
+        <button class="favorite-button" onclick="toggleFavorite(this)">收藏</button>
+
+        <div class="artist-tags">
+          <span class="tag">Hip-Hop</span>
+          <span class="tag">Rap</span>
+          <span class="tag">R&B</span>
+          <span class="tag">Canadian</span>
+          <span class="tag">Toronto</span>
+        </div>
+
+        <p>
+          Aubrey Drake Graham，1986年10月24日出生于加拿大多伦多，
+          艺名Drake，是加拿大说唱歌手、歌手、词曲作者和演员。
+          他是21世纪最成功的音乐艺术家之一，拥有多项商业记录。
+          Drake获得过5项格莱美奖、6项美国音乐奖和34项公告牌音乐奖(史上最多)。
+          他的专辑《Views》和《Scorpion》都创造了流媒体记录，
+          单曲《God's Plan》和《One Dance》都是全球热门金曲。
+        </p>
+      </div>
+    </div>
+
+    <!-- 热门歌曲部分 -->
+    <h2 class="section-title">热门歌曲</h2>
+    <ul class="track-list">
+      <li class="track-item">
+        <div class="track-number">1</div>
+        <div class="track-name">God's Plan</div>
+        <div class="track-plays">356,789,012</div>
+      </li>
+      <li class="track-item">
+        <div class="track-number">2</div>
+        <div class="track-name">One Dance (feat. Wizkid & Kyla)</div>
+        <div class="track-plays">312,345,678</div>
+      </li>
+      <li class="track-item">
+        <div class="track-number">3</div>
+        <div class="track-name">Hotline Bling</div>
+        <div class="track-plays">289,012,345</div>
+      </li>
+      <li class="track-item">
+        <div class="track-number">4</div>
+        <div class="track-name">In My Feelings</div>
+        <div class="track-plays">267,890,123</div>
+      </li>
+      <li class="track-item">
+        <div class="track-number">5</div>
+        <div class="track-name">Started From the Bottom</div>
+        <div class="track-plays">245,678,901</div>
+      </li>
+    </ul>
+
+    <!-- 专辑部分 -->
+    <h2 class="section-title">专辑</h2>
+    <div class="album-grid">
+      <div class="album-card">
+        <!-- <img src="../pic/scorpion.webp" alt="Scorpion" class="album-cover"> -->
+        <div class="album-info">
+          <div class="album-title">Scorpion</div>
+          <div class="album-year">2018 • Album</div>
+        </div>
+      </div>
+      <div class="album-card">
+        <!-- <img src="../pic/views.webp" alt="Views" class="album-cover"> -->
+        <div class="album-info">
+          <div class="album-title">Views</div>
+          <div class="album-year">2016 • Album</div>
+        </div>
+      </div>
+      <div class="album-card">
+        <!-- <img src="../pic/take-care.webp" alt="Take Care" class="album-cover"> -->
+        <div class="album-info">
+          <div class="album-title">Take Care</div>
+          <div class="album-year">2011 • Album</div>
+        </div>
+      </div>
+      <div class="album-card">
+        <!-- <img src="../pic/nothing-was-the-same.webp" alt="Nothing Was The Same" class="album-cover"> -->
+        <div class="album-info">
+          <div class="album-title">Nothing Was The Same</div>
+          <div class="album-year">2013 • Album</div>
+        </div>
+      </div>
+    </div>
+
+      <!-- 相似艺术家 -->
+      <h2 class="section-title">相似艺术家</h2>
+      <div class="similar-artists">
+        <div class="similar-artist">
+          <img src="../pic/artist1.webp" alt="Gracie Abrams">
+          <div>Gracie Abrams</div>
+        </div>
+        <div class="similar-artist">
+          <img src="../pic/artist0.webp" alt="Jungkook">
+          <div>Jungkook</div>
+        </div>
+        <div class="similar-artist">
+          <img src="../pic/artist3.webp" alt="Adele">
+          <div>Adele</div>
+        </div>
+        <div class="similar-artist">
+          <img src="../pic/artist11.webp" alt="Ariana Grande">
+          <div>Ariana Grande</div>
+        </div>
+        <div class="similar-artist">
+          <img src="../pic/artist15.webp" alt="Olivia Rodrigo">
+          <div>Olivia Rodrigo</div>
+        </div>
+      </div>
+    </main>
+
+    <!-- 共用页脚 -->
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h3>关于 Melodrive</h3>
+          <ul>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">工作机会</a></li>
+            <li><a href="#">联系我们</a></li>
+            <li><a href="#">隐私政策</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>帮助</h3>
+          <ul>
+            <li><a href="#">常见问题</a></li>
+            <li><a href="#">使用指南</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">支持</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>社区</h3>
+          <ul>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">活动</a></li>
+            <li><a href="#">排行榜</a></li>
+            <li><a href="#">艺术家中心</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>联系方式</h3>
+          <ul>
+            <li><a href="#">作者： 金洲杨</a></li>
+            <li><a href="#">学号： 0122210870530</a></li>
+            <li><a href="#">QQ： 2117951489</a></li>
+            <li><a href="#">邮箱：jinzhouyang@whut.edu.cn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container copyright">
+        <p>
+          &copy; 2025 Melodrive. 保留所有权利。
+        </p>
+      </div>
+    </footer>
+    <script>
+      function toggleFavorite(button) {
+        button.classList.toggle('favorited');
+        if (button.classList.contains('favorited')) {
+          button.textContent = '已收藏';
+        } else {
+          button.textContent = '收藏';
+        }
+      }
+    </script>
+  </body>
+</html>

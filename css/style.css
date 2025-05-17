@@ -22,11 +22,16 @@ a:hover {
     text-decoration: underline;
 }
 
-.container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 0 15px;
-}
+.search-bar input {
+    background-color: #333;
+    color: #fff;
+  }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
 
 /* 导航栏 */
 header {

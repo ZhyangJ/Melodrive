@@ -3,14 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>我的 | MusicScrobble</title>
+    <title>我的 | Melodrive</title>
     <link rel = "stylesheet" href="../css/style.css">
+    <style>
+                .track-cover {
+            width: 50px;
+            height: 50px;
+            margin: 0 15px;
+        }
+
+        .track-cover img {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
     <!-- 导航栏 -->
     <header>
         <div class="container header-container">
-            <a href="index.html" class="logo">Music<span>Scrobble</span></a>
+            <a href="index.html" class="logo">Melo<span>drive</span></a>
             <div class="search-bar">
                 <input type="text" placeholder="搜索艺术家、专辑或歌曲">
                 <button>搜索</button>
@@ -33,7 +44,7 @@
         <aside class="sidebar">
             <div class="user-card">
                 <div class="user-avatar">
-                    <img src="https://via.placeholder.com/80" alt="用户头像">
+                    <img src="../pic/user.webp" alt="用户头像">
                 </div>
                 <div class="user-name">音乐爱好者</div>
                 <div class="user-stats">
@@ -46,45 +57,45 @@
                         <span>艺术家</span>
                     </div>
                 </div>
-                <a href="#" style="display: block; text-align: center; font-size: 14px;">查看完整档案</a>
+                <a href="../mine/mine.html" style="display: block; text-align: center; font-size: 14px;">查看完整档案</a>
             </div>
             
             <div class="recent-tracks">
                 <h3>最近播放</h3>
                 <div class="track-item">
                     <div class="track-cover">
-                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                        <img src="../pic/seven.webp" alt="专辑封面">
                     </div>
                     <div class="track-info">
-                        <div class="track-name">Bohemian Rhapsody</div>
-                        <div class="track-artist">Queen</div>
+                        <div class="track-name">Seven</div>
+                        <div class="track-artist">Jungkook</div>
                     </div>
                 </div>
                 <div class="track-item">
                     <div class="track-cover">
-                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                        <img src="../pic/1989.webp" alt="专辑封面">
                     </div>
                     <div class="track-info">
-                        <div class="track-name">Blinding Lights</div>
-                        <div class="track-artist">The Weeknd</div>
+                        <div class="track-name">Wildest Dreams</div>
+                        <div class="track-artist">Taylor Swift</div>
                     </div>
                 </div>
                 <div class="track-item">
                     <div class="track-cover">
-                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                        <img src="../pic/red.webp" alt="专辑封面">
                     </div>
                     <div class="track-info">
-                        <div class="track-name">Levitating</div>
-                        <div class="track-artist">Dua Lipa</div>
+                        <div class="track-name">Red</div>
+                        <div class="track-artist">Taylor Swift</div>
                     </div>
                 </div>
                 <div class="track-item">
                     <div class="track-cover">
-                        <img src="https://via.placeholder.com/40" alt="专辑封面">
+                        <img src="../pic/thankunext.webp" alt="专辑封面">
                     </div>
                     <div class="track-info">
-                        <div class="track-name">Stay</div>
-                        <div class="track-artist">The Kid LAROI, Justin Bieber</div>
+                        <div class="track-name">thank u, next</div>
+                        <div class="track-artist">Ariana Grande</div>
                     </div>
                 </div>
             </div>
@@ -100,7 +111,7 @@
             <div class="albums-grid">
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/afterhours.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">After Hours</div>
@@ -111,7 +122,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/FutureNostalgia.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Future Nostalgia</div>
@@ -122,7 +133,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/Chromatica.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Chromatica</div>
@@ -133,7 +144,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/FineLine.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Fine Line</div>
@@ -144,7 +155,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/folklore.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">folklore</div>
@@ -155,7 +166,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/PlanetHer.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Planet Her</div>
@@ -166,7 +177,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/justice.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Justice</div>
@@ -177,7 +188,7 @@
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="专辑封面">
+                        <img src="../pic/HappierThanEver.webp" alt="专辑封面">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Happier Than Ever</div>
@@ -195,45 +206,41 @@
             <div class="albums-grid">
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="艺术家">
+                        <img src="../pic/artist16.webp" alt="艺术家">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Bruno Mars</div>
                         <div class="album-artist">艺术家</div>
-                        <div class="scrobbles">相似度: 85%</div>
                     </div>
                 </div>
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="艺术家">
+                        <img src="../pic/artist11.webp" alt="艺术家">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Ariana Grande</div>
                         <div class="album-artist">艺术家</div>
-                        <div class="scrobbles">相似度: 82%</div>
                     </div>
                 </div>
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="艺术家">
+                        <img src="../pic/artist10.webp" alt="艺术家">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Post Malone</div>
                         <div class="album-artist">艺术家</div>
-                        <div class="scrobbles">相似度: 78%</div>
                     </div>
                 </div>
                 
                 <div class="album-card">
                     <div class="album-cover">
-                        <img src="https://via.placeholder.com/180" alt="艺术家">
+                        <img src="../pic/artist15.webp" alt="艺术家">
                     </div>
                     <div class="album-info">
                         <div class="album-title">Olivia Rodrigo</div>
                         <div class="album-artist">艺术家</div>
-                        <div class="scrobbles">相似度: 75%</div>
                     </div>
                 </div>
             </div>
@@ -243,50 +250,52 @@
     <!-- 共用页脚 -->
     <footer>
         <div class="container footer-content">
-            <div class="footer-section">
-                <h3>关于 MusicScrobble</h3>
-                <ul>
-                    <li><a href="#">关于我们</a></li>
-                    <li><a href="#">工作机会</a></li>
-                    <li><a href="#">联系我们</a></li>
-                    <li><a href="#">隐私政策</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>帮助</h3>
-                <ul>
-                    <li><a href="#">常见问题</a></li>
-                    <li><a href="#">使用指南</a></li>
-                    <li><a href="#">API</a></li>
-                    <li><a href="#">支持</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>社区</h3>
-                <ul>
-                    <li><a href="#">论坛</a></li>
-                    <li><a href="#">活动</a></li>
-                    <li><a href="#">排行榜</a></li>
-                    <li><a href="#">艺术家中心</a></li>
-                </ul>
-            </div>
-            
-            <div class="footer-section">
-                <h3>关注我们</h3>
-                <ul>
-                    <li><a href="#">Twitter</a></li>
-                    <li><a href="#">Facebook</a></li>
-                    <li><a href="#">Instagram</a></li>
-                    <li><a href="#">YouTube</a></li>
-                </ul>
-            </div>
+          <div class="footer-section">
+            <h3>关于 Melodrive</h3>
+            <ul>
+              <li><a href="#">关于我们</a></li>
+              <li><a href="#">工作机会</a></li>
+              <li><a href="#">联系我们</a></li>
+              <li><a href="#">隐私政策</a></li>
+            </ul>
+          </div>
+  
+          <div class="footer-section">
+            <h3>帮助</h3>
+            <ul>
+              <li><a href="#">常见问题</a></li>
+              <li><a href="#">使用指南</a></li>
+              <li><a href="#">API</a></li>
+              <li><a href="#">支持</a></li>
+            </ul>
+          </div>
+  
+          <div class="footer-section">
+            <h3>社区</h3>
+            <ul>
+              <li><a href="#">论坛</a></li>
+              <li><a href="#">活动</a></li>
+              <li><a href="#">排行榜</a></li>
+              <li><a href="#">艺术家中心</a></li>
+            </ul>
+          </div>
+  
+          <div class="footer-section">
+            <h3>联系方式</h3>
+            <ul>
+              <li><a href="#">作者： 金洲杨</a></li>
+              <li><a href="#">学号： 0122210870530</a></li>
+              <li><a href="#">QQ： 2117951489</a></li>
+              <li><a href="#">邮箱：jinzhouyang@whut.edu.cn</a></li>
+            </ul>
+          </div>
         </div>
-        
+  
         <div class="container copyright">
-            <p>&copy; 2023 MusicScrobble. 保留所有权利。仿 Last.fm 风格的音乐网站。</p>
+          <p>
+            &copy; 2025 Melodrive. 保留所有权利。
+          </p>
         </div>
-    </footer>
+      </footer>
 </body>
 </html>

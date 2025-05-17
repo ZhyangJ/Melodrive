@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>首页 | Melodrive</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <style>
+      body {
+        background-color: #000;
+        color: #fff;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+/* 
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      } */
+
+      .gallery-header {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #ccc;
+      }
+
+      .gallery-container {
+        position: relative;
+        width: 100%;
+        height: 80vh;
+        margin: 2rem 0;
+      }
+
+      .main-image {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40vh;
+        height: 40vh;
+        border-radius: 50%;
+        object-fit: cover;
+        z-index: 10;
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      }
+
+      .side-area {
+        position: absolute;
+        top: 0;
+        height: 100%;
+        width: calc(50% - 20vh);
+      }
+
+      .left-area {
+        left: 0;
+      }
+
+      .right-area {
+        right: 0;
+      }
+
+      .small-image {
+        position: absolute;
+        width: 15vh;
+        height: 15vh;
+        border-radius: 50%;
+        object-fit: cover;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+      }
+
+      .small-image:hover {
+        transform: scale(1.1);
+        box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+      }
+
+      .artist-info {
+        position: absolute;
+        bottom: 5%;
+        left: 50%;
+        transform: translateX(-50%);
+        text-align: center;
+        z-index: 20;
+      }
+
+      .artist-name {
+        font-size: 2rem;
+        font-weight: bold;
+        color: #fff;
+        margin-bottom: 20px;
+      }
+
+      .artist-button {
+        display: inline-block;
+        padding: 8px 16px;
+        background-color: black;
+        color: white;
+        border: 2px solid red;
+        border-radius: 20px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: all 0.3s ease;
+      }
+
+      .artist-button:hover {
+        background-color: red;
+        color: white;
+        transform: scale(1.05);
+      }
+
+      .search-bar input {
+        background-color: #333;
+        color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- 导航栏 -->
+    <header>
+      <div class="container header-container">
+        <a href="index.html" class="logo">Melo<span>drive</span></a>
+        <div class="search-bar">
+          <input type="text" placeholder="搜索艺术家、专辑或歌曲" />
+          <button>搜索</button>
+        </div>
+        <nav>
+          <ul>
+            <li><a href="index.html">首页</a></li>
+            <li><a href="mine/mine.html">我的</a></li>
+            <li><a href="library/library.html">音乐库</a></li>
+            <li><a href="artists/artists.html">艺术家</a></li>
+            <li><a href="recently/recently.html">最近播放</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- 主要内容 -->
+    <main class="container">
+      <!-- 新增的圆形画廊 -->
+      <div class="gallery-container">
+        <!-- 主图片 -->
+        <img
+          class="main-image"
+          src="./pic/artist0.webp"
+          alt="Jungkook"
+        />
+
+        <div class="gallery-header">
+          <h1>Similar Artists</h1>
+          <p>
+            <strong id="main-artist-name">Main Artist</strong> and their similar
+            artists
+          </p>
+        </div>
+        <!-- 左侧区域 -->
+        <div class="side-area left-area" id="left-area"></div>
+
+        <!-- 右侧区域 -->
+        <div class="side-area right-area" id="right-area"></div>
+
+        <!-- 艺术家名字 -->
+        <div class="artist-info">
+          <div class="artist-name" id="artist-name"></div>
+          <a id="artist-link" class="artist-button" href="#">查看详情</a>
+        </div>
+      </div>
+    </main>
+
+    <!-- 共用页脚 -->
+    <footer>
+      <div class="container footer-content">
+        <div class="footer-section">
+          <h3>关于 Melodrive</h3>
+          <ul>
+            <li><a href="#">关于我们</a></li>
+            <li><a href="#">工作机会</a></li>
+            <li><a href="#">联系我们</a></li>
+            <li><a href="#">隐私政策</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>帮助</h3>
+          <ul>
+            <li><a href="#">常见问题</a></li>
+            <li><a href="#">使用指南</a></li>
+            <li><a href="#">API</a></li>
+            <li><a href="#">支持</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>社区</h3>
+          <ul>
+            <li><a href="#">论坛</a></li>
+            <li><a href="#">活动</a></li>
+            <li><a href="#">排行榜</a></li>
+            <li><a href="#">艺术家中心</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-section">
+          <h3>联系方式</h3>
+          <ul>
+            <li><a href="#">作者： 金洲杨</a></li>
+            <li><a href="#">学号： 0122210870530</a></li>
+            <li><a href="#">QQ： 2117951489</a></li>
+            <li><a href="#">邮箱：jinzhouyang@whut.edu.cn</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="container copyright">
+        <p>
+          &copy; 2025 Melodrive. 保留所有权利。
+        </p>
+      </div>
+    </footer>
+
+    <!-- JS逻辑 -->
+    <script>
+      // 艺术家数据数组（包含名字和页面链接）
+      const artistsData = [
+        { name: "Jungkook", page: "./artists/artist0.html" },
+        { name: "Gracie Abrams", page: "./artists/artist1.html" },
+        { name: "Taylor Swift", page: "./artists/artist2.html" },
+        { name: "Adele", page: "./artists/artist3.html" },
+        { name: "The Weeknd", page: "./artists/artist4.html" },
+        { name: "Beyoncé", page: "./artists/artist5.html" },
+        { name: "Ed Sheeran", page: "./artists/artist6.html" },
+        { name: "Billie Eilish", page: "./artists/artist7.html" },
+        { name: "Drake", page: "./artists/artist8.html" },
+        { name: "Dua Lipa", page: "./artists/artist9.html" },
+        { name: "Post Malone", page: "./artists/artist10.html" },
+        { name: "Ariana Grande", page: "./artists/artist11.html" },
+        { name: "Justin Bieber", page: "./artists/artist12.html" },
+        { name: "Doja Cat", page: "./artists/artist13.html" },
+        { name: "Coldplay", page: "./artists/artist14.html" },
+        { name: "Olivia Rodrigo", page: "./artists/artist15.html" },
+        { name: "Bruno Mars", page: "./artists/artist16.html" },
+        { name: "Harry Styles", page: "./artists/artist17.html" },
+        { name: "Eminem", page: "./artists/artist18.html" },
+        { name: "Lady Gaga", page: "./artists/artist19.html" },
+        { name: "Sabrina Carpenter", page: "./artists/artist20.html" },
+      ];
+
+      // 获取DOM元素
+      const leftArea = document.getElementById("left-area");
+      const rightArea = document.getElementById("right-area");
+      const mainImage = document.querySelector(".main-image");
+      const artistName = document.getElementById("artist-name");
+      const artistLink = document.getElementById("artist-link"); // 新增的详情按钮
+
+      // 修改主图片初始化
+      mainImage.src = "./pic/artist0.webp";
+      mainImage.alt = artistsData[0].name;
+      mainImage.dataset.index = "0"; // 存储数组索引
+      updateArtistInfo(0); // 初始化艺术家信息
+
+      // 图片数量
+      const imageCount = 10;
+      const smallImageSize = 15; // vh单位
+
+      // 存储所有小图片元素的数组
+      let smallImages = [];
+
+      // 检查新位置是否与已放置图片重叠
+      function isOverlapping(x, y, size, existingPositions) {
+        for (const pos of existingPositions) {
+          const distance = Math.sqrt(
+            Math.pow(x - pos.x, 2) + Math.pow(y - pos.y, 2)
+          );
+          if (distance < size * 1.2) {
+            return true;
+          }
+        }
+        return false;
+      }
+
+      // 生成随机位置
+      function getRandomPosition(
+        areaWidth,
+        areaHeight,
+        size,
+        existingPositions
+      ) {
+        const maxAttempts = 100;
+        let attempts = 0;
+        let x, y;
+
+        do {
+          x = size / 2 + Math.random() * (areaWidth - size);
+          y = size / 2 + Math.random() * (areaHeight - size);
+          attempts++;
+
+          if (attempts > maxAttempts) {
+            return null;
+          }
+        } while (isOverlapping(x, y, size, existingPositions));
+
+        return { x, y };
+      }
+
+      // 重新布局所有小图片
+      function rearrangeSmallImages() {
+        const leftPositions = [];
+        const rightPositions = [];
+        const leftWidth = leftArea.clientWidth;
+        const rightWidth = rightArea.clientWidth;
+        const areaHeight = leftArea.clientHeight;
+        const size = (smallImageSize * window.innerHeight) / 100;
+
+        smallImages
+          .filter((img) => img.parentElement === leftArea)
+          .forEach((img) => {
+            const position = getRandomPosition(
+              leftWidth,
+              areaHeight,
+              size,
+              leftPositions
+            );
+            if (position) {
+              img.style.left = `${position.x - size / 2}px`;
+              img.style.top = `${position.y - size / 2}px`;
+              leftPositions.push({ x: position.x, y: position.y });
+            }
+          });
+
+        smallImages
+          .filter((img) => img.parentElement === rightArea)
+          .forEach((img) => {
+            const position = getRandomPosition(
+              rightWidth,
+              areaHeight,
+              size,
+              rightPositions
+            );
+            if (position) {
+              img.style.left = `${position.x - size / 2}px`;
+              img.style.top = `${position.y - size / 2}px`;
+              rightPositions.push({ x: position.x, y: position.y });
+            }
+          });
+      }
+
+      // 更新艺术家信息（名字+链接）
+      function updateArtistInfo(index) {
+        const artist = artistsData[index];
+        artistName.textContent = artist.name;
+        if (artistLink) {
+          artistLink.href = artist.page;
+        }
+
+        // 如果存在标题中的艺术家名字元素也更新
+        if (document.getElementById("main-artist-name")) {
+          document.getElementById("main-artist-name").textContent = artist.name;
+        }
+      }
+
+      // 在指定区域生成图片
+      function generateImages(area, count, isLeft) {
+        const areaWidth = area.clientWidth;
+        const areaHeight = area.clientHeight;
+        const size = (smallImageSize * window.innerHeight) / 100;
+        const areaPositions = [];
+
+        for (let i = 0; i < count; i++) {
+          const position = getRandomPosition(
+            areaWidth,
+            areaHeight,
+            size,
+            areaPositions
+          );
+          if (!position) {
+            console.warn(`无法放置第 ${i + 1} 张图片，跳过`);
+            continue;
+          }
+
+          const img = document.createElement("img");
+          img.className = "small-image";
+          const artistIndex = isLeft ? i + 1 : i + 1 + count;
+
+          img.src = `./pic/artist${
+            isLeft ? i + 1 : i + 1 + count
+          }.webp`;
+          img.alt = artistsData[artistIndex].name;
+          img.dataset.index = artistIndex; // 存储艺术家数组索引
+
+          img.style.left = `${position.x - size / 2}px`;
+          img.style.top = `${position.y - size / 2}px`;
+
+          img.onclick = function () {
+            // 交换主图片和点击的图片
+            [mainImage.src, this.src] = [this.src, mainImage.src];
+            [mainImage.alt, this.alt] = [this.alt, mainImage.alt];
+            [mainImage.dataset.index, this.dataset.index] = [
+              this.dataset.index,
+              mainImage.dataset.index,
+            ];
+
+            // 更新艺术家信息
+            updateArtistInfo(parseInt(mainImage.dataset.index));
+
+            // 重新排列图片
+            rearrangeSmallImages();
+          };
+
+          area.appendChild(img);
+          smallImages.push(img);
+          areaPositions.push({ x: position.x, y: position.y });
+        }
+      }
+
+      // 生成图片
+      generateImages(leftArea, imageCount, true);
+      generateImages(rightArea, imageCount, false);
+
+      // 窗口大小改变时重新布局
+      window.addEventListener("resize", function () {
+        leftArea.innerHTML = "";
+        rightArea.innerHTML = "";
+        smallImages = [];
+        generateImages(leftArea, imageCount, true);
+        generateImages(rightArea, imageCount, false);
+      });
+    </script>
+  </body>
+</html>
